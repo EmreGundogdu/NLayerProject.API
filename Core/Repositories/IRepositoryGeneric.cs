@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Repository
+namespace Core.Repositories
 {
     public interface IRepositoryGeneric<TEntity>where TEntity:class
     {
