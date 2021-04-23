@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Repositories
+namespace Core.Services
 {
-    public interface IProductRepository:IRepositoryGeneric<Product>
+    public interface IProductService:IService<Product>
     {
         Task<Product> GetWithCategoryByIdAsync(int productId);
     }
