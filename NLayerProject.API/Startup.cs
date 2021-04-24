@@ -31,7 +31,9 @@ namespace NLayerProject.API
         {
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseSqlServer(Configuration["ConnectionStrings:SqlConStr"].ToString());
+                options.UseSqlServer(Configuration["ConnectionStrings:SqlConStr"].ToString(),o=> {
+                    o.MigrationsAssembly("Data");
+                });
             });
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllers();
