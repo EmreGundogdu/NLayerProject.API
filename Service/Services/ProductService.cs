@@ -16,9 +16,9 @@ namespace Service.Services
         {
         }
 
-        public Task<Product> GetWithCategoryByIdAsync(int productId)
+        public async Task<Product> GetWithCategoryByIdAsync(int productId)
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.Product.GetWithCategoryByIdAsync(productId)
         }
     }
 }
