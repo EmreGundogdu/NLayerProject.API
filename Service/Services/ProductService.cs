@@ -18,7 +18,7 @@ namespace Service.Services
 
         public async Task<Product> GetWithCategoryByIdAsync(int productId)
         {
-            return await _unitOfWork.Product.GetWithCategoryByIdAsync(productId)
+            return await _unitOfWork.Product.GetWithCategoryByIdAsync(productId);
         }
     }
 }
