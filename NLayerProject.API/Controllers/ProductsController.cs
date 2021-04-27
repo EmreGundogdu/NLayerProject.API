@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Models;
 using Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +33,12 @@ namespace NLayerProject.API.Controllers
         {
             var product = await _productService.GetByIdAsync(id);
             return Ok(_mapper.Map<ProductDto>(product));
+        }
+        [HttpPost]
+        public async Task<IActionResult> Save(ProductDto productDto)
+        {
+            var newProduct = await _productService.AddAsync(_mapper.Map<Product>(productDto));
+            return Created(string.Empty, _mapper.Map<ProductDto>(new));
         }
     }
 }
