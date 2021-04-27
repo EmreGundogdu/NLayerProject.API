@@ -31,7 +31,7 @@ namespace NLayerProject.API.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var product = await _productService.GetByIdAsync(id);
-            return Ok(_mapper.Map<CategoryDto>(product));
+            return Ok(_mapper.Map<ProductDto>(product));
         }
     }
 }
