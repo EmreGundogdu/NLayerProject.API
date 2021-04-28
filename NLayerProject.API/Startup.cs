@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NLayerProject.API.Filters;
 using Service.Services;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,8 @@ namespace NLayerProject.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(typeof(Startup));
+
+            services.AddScoped<NotFoundFilter>();
 
             services.AddScoped(typeof(IRepositoryGeneric<>), typeof(Repository<>));
             services.AddScoped(typeof(IService<>), typeof(Service<>));
