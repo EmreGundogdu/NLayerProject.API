@@ -42,8 +42,7 @@ namespace NLayerProject.API.Controllers
         {
             var product = await _productService.GetWithCategoryByIdAsync(id);
             return Ok(_mapper.Map<ProductWithCategoryDto>(product));
-        }
-        [ValidationFilter]
+        }        
         [HttpPost]
         public async Task<IActionResult> Save(ProductDto productDto)
         {

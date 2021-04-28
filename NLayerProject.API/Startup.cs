@@ -53,7 +53,10 @@ namespace NLayerProject.API
                 });
             });
             
-            services.AddControllers();
+            services.AddControllers(o=>
+            {
+                o.Filters.Add(new ValidationFilter());
+            });
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressModelStateInvalidFilter = true;
