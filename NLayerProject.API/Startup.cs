@@ -5,7 +5,9 @@ using Data;
 using Data.Repositories;
 using Data.UnitOfWorks;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +15,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using NLayerProject.API.DTOs;
 using NLayerProject.API.Filters;
 using Service.Services;
 using System;
@@ -70,6 +74,23 @@ namespace NLayerProject.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseExceptionHandler(config =>
+            {
+                config.Run(async context =>
+                {
+                    context.Response.StatusCode = 500;
+                    context.Response.ContentType = "application/json";
+                    var error = context.Features.Get<IExceptionHandlerFeature>();
+                    if (error!=null)
+                    {
+                        var ex = error.Error;
+                        ErrorDto errorDto = new ErrorDto();
+                        errorDto.Status = 500;
+                        errorDto.Errors.Add(ex.Message);
+                        await context.Response.WriteAsync(JsonConvert.SerializeObject(errorDto));
+                    }
+                });
+            });
 
             app.UseHttpsRedirection();
 

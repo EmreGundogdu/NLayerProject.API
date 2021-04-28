@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace NLayerProject.API.DTOs
 {
     public class ProductDto
-    {
+    { 
         public int Id { get; set; }
         [Required(ErrorMessage ="{0} alanı gereklidir.")]
         public string Name { get; set; }
