@@ -17,6 +17,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using NLayerProject.API.DTOs;
+using NLayerProject.API.Extensions;
 using NLayerProject.API.Filters;
 using Service.Services;
 using System;
@@ -74,23 +75,7 @@ namespace NLayerProject.API
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseExceptionHandler(config =>
-            {
-                config.Run(async context =>
-                {
-                    context.Response.StatusCode = 500;
-                    context.Response.ContentType = "application/json";
-                    var error = context.Features.Get<IExceptionHandlerFeature>();
-                    if (error!=null)
-                    {
-                        var ex = error.Error;
-                        ErrorDto errorDto = new ErrorDto();
-                        errorDto.Status = 500;
-                        errorDto.Errors.Add(ex.Message);
-                        await context.Response.WriteAsync(JsonConvert.SerializeObject(errorDto));
-                    }
-                });
-            });
+            app.UseCustomException();
 
             app.UseHttpsRedirection();
 
