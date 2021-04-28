@@ -24,5 +24,11 @@ namespace NLayerProject.API.Controllers
             var person = await _personService.GetAllAsync();
             return Ok(person);
         }
+        [HttpPost]
+        public async Task<IActionResult> Save(Person person)
+        {
+            var newPerson = _personService.AddAsync(person);
+            return Ok(newPerson);
+        }
     }
 }
