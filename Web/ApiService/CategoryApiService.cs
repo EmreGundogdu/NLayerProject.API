@@ -29,5 +29,19 @@ namespace Web.ApiService
             }
             return categoryDtos;
         }
+        public async Task<CategoryDto> AddAsync(CategoryDto categoryDto)
+        {
+            var stringContent = new StringContent(JsonConvert.SerializeObject(categoryDto));
+            var response = await _httpClient.PostAsync("categories", stringContent);
+            if (response.IsSuccessStatusCode)
+            {
+                categoryDto = JsonConvert.DeserializeObject<CategoryDto>(await response.Content.ReadAsStringAsync());
+                return categoryDto;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
