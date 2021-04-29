@@ -8,17 +8,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Web.ApiService;
 
 namespace Web.Controllers
 {
     public class CategoriesController : Controller
     {
         private readonly ICategoryService _categoryService;
+        private readonly CategoryApiService _categoryApiService;
         private readonly IMapper _mapper;
-        public CategoriesController(ICategoryService categoryService,IMapper mapper)
+        public CategoriesController(ICategoryService categoryService,IMapper mapper, CategoryApiService categoryApiService)
         {
             _categoryService = categoryService;
             _mapper = mapper;
+            _categoryApiService = categoryApiService;
         }
         public async Task<IActionResult> Index()
         {
