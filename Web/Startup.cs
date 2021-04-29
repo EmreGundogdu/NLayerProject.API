@@ -1,18 +1,11 @@
-using Core.Repositories;
-using Core.Services;
-using Core.UnitOfWorks;
-using Data;
-using Data.Repositories;
-using Data.UnitOfWorks;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NLayerProject.Web.Filters;
-using Service.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,21 +33,7 @@ namespace Web
 
             services.AddScoped<NotFoundFilter>();
             services.AddAutoMapper(typeof(Startup));
-
-            services.AddScoped(typeof(IRepositoryGeneric<>), typeof(Repository<>));
-            services.AddScoped(typeof(IService<>), typeof(Service<>));
-
-            services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<ICategoryService, CategoryService>();
-
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-            services.AddDbContext<AppDbContext>(options =>
-            {
-                options.UseSqlServer(Configuration["ConnectionStrings:SqlConStr"].ToString(), o => {
-                    o.MigrationsAssembly("Data");
-                });
-            });
+            
             services.AddControllersWithViews();
         }
 
