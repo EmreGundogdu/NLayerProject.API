@@ -9,7 +9,7 @@ namespace NLayerProject.Web.DTOs
     public class CategoryDto
     {
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage ="{0} Alanı boş olamaz.")]
         public string Name { get; set; }
     }
 }
