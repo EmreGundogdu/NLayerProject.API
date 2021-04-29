@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Web.ApiService
@@ -31,7 +32,7 @@ namespace Web.ApiService
         }
         public async Task<CategoryDto> AddAsync(CategoryDto categoryDto)
         {
-            var stringContent = new StringContent(JsonConvert.SerializeObject(categoryDto));
+            var stringContent = new StringContent(JsonConvert.SerializeObject(categoryDto),Encoding.UTF8,"application/json");
             var response = await _httpClient.PostAsync("categories", stringContent);
             if (response.IsSuccessStatusCode)
             {
