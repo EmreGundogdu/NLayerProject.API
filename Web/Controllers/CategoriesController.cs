@@ -3,6 +3,7 @@ using Core.Models;
 using Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using NLayerProject.Web.DTOs;
+using NLayerProject.Web.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,13 @@ namespace Web.Controllers
         public IActionResult Update(CategoryDto categoryDto)
         {
             _categoryService.Update(_mapper.Map<Category>(categoryDto));
+            return RedirectToAction("Index");
+        }
+        [ServiceFilter(typeof(NotFoundFilter))]
+        public IActionResult Delete(int id)
+        {
+            var category = _categoryService.GetByIdAsync(id).Result;
+            _categoryService.Remove(category);
             return RedirectToAction("Index");
         }
     }
