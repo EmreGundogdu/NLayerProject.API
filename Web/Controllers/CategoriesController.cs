@@ -50,10 +50,9 @@ namespace Web.Controllers
             return RedirectToAction("Index");
         }
         [ServiceFilter(typeof(NotFoundFilter))]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var category = _categoryService.GetByIdAsync(id).Result;
-            _categoryService.Remove(category);
+            await _categoryApiService.Remove(id);
             return RedirectToAction("Index");
         }
     }
